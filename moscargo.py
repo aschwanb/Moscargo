@@ -76,8 +76,10 @@ def read_catalog(catalog_to_parse):
 
 @app.route('/<catalog>')
 def index(catalog):
+	if not catalog == "testing" and not catalog == "production":
+		catalog = "production"
 	sprodlist = read_catalog(catalog)
-	return render_template('moscargo.html', example_prods=sprodlist)
+	return render_template('moscargo.html', example_prods=sprodlist, catalog=catalog)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

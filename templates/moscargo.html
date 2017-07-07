@@ -16,7 +16,7 @@
     <![endif]-->
   </head>
   <body>
-    <h2>Moscargo, your munki repo browser!</h2>
+    <h2>Software in catalog {{ catalog }}</h2>
     <div class="row">
     <div class="col-md-12">
       <table class="table table-striped">
@@ -25,7 +25,7 @@
             <th></th>
             <th class="col-md-2">Name</th>
             <th>Description</th>
-            <th class="col-md-3">Link (Version)</th>
+            <th class="col-md-3">Version</th>
           </tr>
         </thead>
         {% for prod in example_prods %}
@@ -36,7 +36,6 @@
           <td>{{ prod['Name'] }}</td>
           <td>{{ prod['description'] }}</td>
           <td>
-            <a href={{ prod['link'] }}>
             {{ prod['version'] }}
           </td>
         </tbody>
