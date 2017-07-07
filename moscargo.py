@@ -23,6 +23,18 @@ def get_key_watcher():
             return True  # key seen for the first time
     return key_not_seen
 
+def get_icon_url(installer_type, icon_name, name):
+	joined_path = os.path.join(repo_base,'icons', name) + '.png'
+	if installer_type== 'profile':
+	    icon_url = 'static/mobileconfig.png'
+	elif icon_name:
+	    icon_url = os.path.join('static/icons/', icon_name).replace(' ', '%20')
+	elif os.path.exists(joined_path):
+	    icon_url = os.path.join(repo_base, 'icons', name + '.png').replace(' ', '%20')
+	else:
+	    icon_url = 'static/package.png'
+	return icon_url
+
 def read_catalog(catalog_to_parse):
 	try:
 	    products = plistlib.readPlist(os.path.join(repo_base, 'catalogs', catalog_to_parse))
@@ -50,15 +62,9 @@ def read_catalog(catalog_to_parse):
 			    this_prod_dict['link'] = (os.path.join('static/pkgs', prod_dict.get('installer_item_location'))).replace(' ', '%20')
 			except Exception:
 			    this_prod_dict['link'] = 'No link!'
-
-			if prod_dict.get('installer_type') == 'profile':
-			    this_prod_dict['icon_url'] = 'static/mobileconfig.png'
-			elif prod_dict.get('icon_name'):
-			    this_prod_dict['icon_url'] = (os.path.join('static/icons/', prod_dict.get('icon_name'))).replace(' ', '%20')
-			elif os.path.exists(joined_path):
-			    this_prod_dict['icon_url'] = (os.path.join('static/icons', prod_dict.get('name') + '.png')).replace(' ', '%20')
-			else:
-			    this_prod_dict['icon_url'] = 'static/package.png'
+			this_prod_dict['icon_url'] = get_icon_url(prod_dict.get('installer_type'),
+								  prod_dict.get('icon_name'),
+								  prod_dict.get('name'))
 			prodlist.append(this_prod_dict)
 	    listbyvers = sorted(prodlist, key=itemgetter('version'), reverse=True)
 	    filtered = filter(get_key_watcher(), listbyvers)
