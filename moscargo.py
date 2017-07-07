@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from flask import Flask
-from flask import render_template, redirect
+from flask import render_template, redirect, abort
 app = Flask(__name__)
 from operator import itemgetter
 from distutils.version import LooseVersion
@@ -77,10 +77,12 @@ def read_catalog(catalog_to_parse):
 @app.route('/')
 @app.route('/<catalog>')
 def index(catalog="production"):
-	if not catalog == "testing" and not catalog == "production":
-		catalog = "production"
 	sprodlist = read_catalog(catalog)
-	return render_template('moscargo.html', example_prods=sprodlist, catalog=catalog)
+	try:
+		return render_template('moscargo.html', example_prods=sprodlist, catalog=catalog)
+	except Exception, e:
+		print e
+		abort(404)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
