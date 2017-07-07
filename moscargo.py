@@ -74,8 +74,9 @@ def read_catalog(catalog_to_parse):
 	except Exception, e:
 	    print e
 
+@app.route('/')
 @app.route('/<catalog>')
-def index(catalog):
+def index(catalog="production"):
 	if not catalog == "testing" and not catalog == "production":
 		catalog = "production"
 	sprodlist = read_catalog(catalog)
