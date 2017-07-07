@@ -30,7 +30,7 @@ def get_icon_url(installer_type, icon_name, name):
 	elif icon_name:
 	    icon_url = os.path.join('static/icons/', icon_name).replace(' ', '%20')
 	elif os.path.exists(joined_path):
-	    icon_url = os.path.join(repo_base, 'icons', name + '.png').replace(' ', '%20')
+	    icon_url = os.path.join('static/icons', name + '.png').replace(' ', '%20')
 	else:
 	    icon_url = 'static/package.png'
 	return icon_url
