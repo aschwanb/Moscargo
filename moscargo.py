@@ -76,7 +76,7 @@ def read_catalog(catalog_to_parse):
 
 @app.route('/')
 @app.route('/<catalog>')
-def index(catalog="production"):
+def index(catalog="all"):
 	sprodlist = read_catalog(catalog)
 	try:
 		return render_template('moscargo.html', example_prods=sprodlist, catalog=catalog)
