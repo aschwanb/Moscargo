@@ -31,7 +31,7 @@
         {% for prod in example_prods %}
         <tbody>
           <td>
-            <img src={{ prod['icon_url'] }} style="width: 30px; height: 30px;"/>
+            <img src={{ url_for('static', filename=prod['icon_url']) }} style="width: 30px; height: 30px;"/>
           </td>
           <td>{{ prod['Name'] }}</td>
           <td>{{ prod['description'] }}</td>

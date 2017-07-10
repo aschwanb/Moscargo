@@ -26,13 +26,13 @@ def get_key_watcher():
 def get_icon_url(installer_type, icon_name, name):
 	joined_path = os.path.join(repo_base,'icons', name) + '.png'
 	if installer_type== 'profile':
-	    icon_url = 'static/mobileconfig.png'
+	    icon_url = 'mobileconfig.png'
 	elif icon_name:
-	    icon_url = os.path.join('static/icons/', icon_name).replace(' ', '%20')
+	    icon_url = os.path.join('icons', icon_name)
 	elif os.path.exists(joined_path):
-	    icon_url = os.path.join('static/icons', name + '.png').replace(' ', '%20')
+	    icon_url = os.path.join('icons', name + '.png')
 	else:
-	    icon_url = 'static/package.png'
+	    icon_url = 'package.png'
 	return icon_url
 
 def read_catalog(catalog_to_parse):
